@@ -1,0 +1,10 @@
+@font-face {
+    font-family: branda;
+    src: url(./assets/Branda-yolq.ttf)
+}
+
+.hello {
+    font-family: branda;
+    color: red;
+    background: url('./assets/image.png');
+}
