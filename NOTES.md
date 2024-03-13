@@ -50,3 +50,7 @@
 * Loaders are evaluated/executed from right to left (or from bottom to top).
 * The application shell defines commonly used libraries as shared modules to avoid duplication of them in the page builds
 * Custom parameters can be passed to webpack by adding two dashes between the npm run build command and your parameters, e.g. `npm run build -- --color`.
+* The `optimization.splitChunks.minSize` option can be used to change the size threshold for creating a chunk, which defaults to 30k.
+* `runtimeChunk: "single"` is required to ensure correct module instantiation, it is disabled by default,
+* webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory and serves them as if they were real files mounted at the server's root path. If your page expects to find the bundle files on a different path, you can change this with the devMiddleware.publicPath option in the dev server's configuration
+* webpack-dev-middleware is a wrapper that will emit files processed by webpack to a server
