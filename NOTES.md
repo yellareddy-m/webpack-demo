@@ -54,3 +54,4 @@
 * `runtimeChunk: "single"` is required to ensure correct module instantiation, it is disabled by default,
 * webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory and serves them as if they were real files mounted at the server's root path. If your page expects to find the bundle files on a different path, you can change this with the devMiddleware.publicPath option in the dev server's configuration
 * webpack-dev-middleware is a wrapper that will emit files processed by webpack to a server
+* Prevent Duplication: Use Entry dependencies or SplitChunksPlugin to dedupe and split chunks.
