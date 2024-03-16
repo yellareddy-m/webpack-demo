@@ -76,3 +76,20 @@ import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
   onerror="this.remove()"
 ></script>
 ```
+## Build performance
+
+* Typically, `module.exports` points to the configuration object. To use the env variable, you must convert `module.exports` to a function
+* Apply loaders to the minimal number of modules necessary, Use the `include` field to only apply the loader modules that actually need to be transformed by it
+* Use the DllPlugin to move code that is changed less often into a separate compilation. This will improve the application's compilation speed, although it does increase complexity of the build process
+* With many watched files, this can cause a lot of CPU load. In these cases, you can increase the polling interval with watchOptions.poll
+* Be aware of the performance differences between the different devtool settings.
+* "eval" has the best performance, but doesn't assist you for transpiled code.
+* The cheap-source-map variants are more performant if you can live with the slightly worse mapping quality.
+* Use a eval-source-map variant for incremental builds.
+* In most cases, eval-cheap-module-source-map is the best option.
+* The Content-Security-Policy (CSP) HTTP header is used to define a set of content restrictions for a web page, particularly to mitigate the risk of cross-site scripting (XSS) attacks. The http-equiv attribute can be used to set a Content-Security-Policy in the <meta> tag for individual web pages.
+```js
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com;">
+```
+## HMR
+* Since webpack-dev-server v4.0.0, Hot Module Replacement is enabled by default.
