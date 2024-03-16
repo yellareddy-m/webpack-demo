@@ -50,3 +50,32 @@
 * Loaders are evaluated/executed from right to left (or from bottom to top).
 * The application shell defines commonly used libraries as shared modules to avoid duplication of them in the page builds
 * Custom parameters can be passed to webpack by adding two dashes between the npm run build command and your parameters, e.g. `npm run build -- --color`.
+* The `optimization.splitChunks.minSize` option can be used to change the size threshold for creating a chunk, which defaults to 30k.
+* `runtimeChunk: "single"` is required to ensure correct module instantiation, it is disabled by default,
+* webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory and serves them as if they were real files mounted at the server's root path. If your page expects to find the bundle files on a different path, you can change this with the devMiddleware.publicPath option in the dev server's configuration
+* webpack-dev-middleware is a wrapper that will emit files processed by webpack to a server
+* Prevent Duplication: Use Entry dependencies or SplitChunksPlugin to dedupe and split chunks.
+* It is possible to provide a dynamic expression to import() when you might need to import specific module based on a computed variable later.
+* **prefetch:** resource is probably needed for some navigation in the future
+* **preload:** resource will also be needed during the current navigation
+```js
+import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
+```
+* This will result in `<link rel="prefetch" href="login-modal-chunk.js">` being appended in the head of the page, which will instruct the browser to prefetch in idle time the login-modal-chunk.js file.
+* webpack will add the prefetch hint once the parent chunk has been loaded.
+* Preload directive has a bunch of differences compared to prefetch:
+   * A preloaded chunk starts loading in parallel to the parent chunk. A prefetched chunk starts after the parent chunk finishes loading.
+  * A preloaded chunk has medium priority and is instantly downloaded. A prefetched chunk is downloaded while the browser is idle.
+  * A preloaded chunk should be instantly requested by the parent chunk. A prefetched chunk can be used anytime in the future.
+  * Browser support is different.
+* To prevent such problem you can add your own onerror handler, which removes the script in case of any error:
+```js
+<script
+  src="https://example.com/dist/dynamicComponent.js"
+  async
+  onerror="this.remove()"
+></script>
+```
+* It's also good practice to extract third-party libraries, such as lodash or react, **to a separate vendor chunk as they are less likely to change than our local source code**. This step will allow clients to request even less from the server to stay up to date. **This can be done by using the cacheGroups option of the SplitChunksPlugin**
+* oprimization, moduleIds is not producing different hash on rebuild even with deterministic or without it, so this must be the default behavior
+* 
