@@ -93,3 +93,13 @@ import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
 ```
 ## HMR
 * Since webpack-dev-server v4.0.0, Hot Module Replacement is enabled by default.
+## Tree Shaking
+* A "side effect" is defined as code that performs a special behavior when imported, other than exposing one or more exports. An example of this are polyfills, which affect the global scope and usually do not provide an export.
+* The `sideEffects` and `usedExports` (more known as tree shaking) optimizations are two different things.
+* `sideEffects` is much more effective since it allows to skip whole modules/files and the complete subtree
+* But we can help terser by using the /*#__PURE__*/ annotation. It flags a statement as side effect free. So a small change would make it possible to tree-shake the code:
+```js
+var Button$1 = /*#__PURE__*/ withAppProvider()(Button);
+```
+* TerserPlugin is used to idfentify dead code for tree shaking
+* `ModuleConcatenationPlugin` is needed for the tree shaking to work. It is added by mode: 'production'. If you are not using it, remember to add the ModuleConcatenationPlugin manually.
