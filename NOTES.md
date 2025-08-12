@@ -1,9 +1,9 @@
-* Internally webpack manages the bundling process using what's called chunk
-    Chunks are smaller pieces of code that are included in the bundles seen in webpack output
-* ![alt text](./src/assets/image.png)
+* An entry itself is a module and when webpack encounters one, it tries to match the module against the file system using the resolve configuration. For example, you can tell webpack to perform the lookup against specific directories in addition to node_modules
+  
 * Each loader applies a specific transformation against the module contents.
+  
 * webpack tries to match the module against the file system using resolve configuration, if resolve fails webpack thorws a runtime error.
-* Loaders have resolve conifgurations of their own
+* Loaders have resolve configurations of their own
 * Webpack uses enhanced-resolve package  underneath for resolving modules
 * Webpack assumes all code as JavaScript by default.
 * entry can be a function and even an asynchronous one 
