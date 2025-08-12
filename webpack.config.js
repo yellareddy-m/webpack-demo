@@ -1,32 +1,28 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { mode } = require("webpack-nano/argv");
+const { merge } = require("webpack-merge");
+const parts = require("./webpack.parts");
 
-module.exports = {
-  mode: 'production',
-  entry: {
-    app: './src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    static: './dist',
-    hot: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Hot Module Replacement',
-    }),
-  ],
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
+const commonConfig = merge([
+  { entry: ["./src"] },
+  parts.page({ title: "Demddo" }),
+]);
+
+const productionConfig = merge([]);
+
+const developmentConfgi = merge([
+  { entry: ["webpack-plugin-serve/client"] },
+  parts.devServer(),
+]);
+
+const getConfig = (mode) => {
+  switch (mode) {
+    case "production":
+      return merge(commonConfig, productionConfig, { mode });
+    case "development":
+      return merge(commonConfig, developmentConfgi, { mode });
+    default:
+      throw new Error(`Trying to use an unknown mode, ${mode}`);
+  }
 };
+
+module.exports = getConfig(mode);

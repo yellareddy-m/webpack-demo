@@ -103,3 +103,9 @@ var Button$1 = /*#__PURE__*/ withAppProvider()(Button);
 ```
 * TerserPlugin is used to idfentify dead code for tree shaking
 * `ModuleConcatenationPlugin` is needed for the tree shaking to work. It is added by mode: 'production'. If you are not using it, remember to add the ModuleConcatenationPlugin manually.
+
+
+-------New Notes -------
+* To access your development server from the network, you need to figure out the IP address of your machine. For example, using ifconfig | grep inet on Unix, or ipconfig on Windows. Then you need to set your HOST to match your IP like this: HOST=<ip goes here> npm start.
+* `js  HOST=172.16.6.75 npm start` 
+* 
