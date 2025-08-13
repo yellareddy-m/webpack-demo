@@ -109,5 +109,6 @@ var Button$1 = /*#__PURE__*/ withAppProvider()(Button);
 * To access your development server from the network, you need to figure out the IP address of your machine. For example, using ifconfig | grep inet on Unix, or ipconfig on Windows. Then you need to set your HOST to match your IP like this: HOST=<ip goes here> npm start.
 * `js  HOST=172.16.6.75 npm start` 
 * PostCSS is the equivalent of Babel for styling and you can find plugins for many purposes
-*  Even though the CSS loader handles absolute and relative imports by default, it doesn’t work with root relative imports - `url("/static/img/demo.png")
+*  Even though the CSS loader handles absolute and relative imports by default, it doesn’t work with root relative imports - `url("/static/img/demo.png")`
+*  extract-css-chunks-webpack-plugin↗ is a community maintained alternative to mini-css-extract-plugin designed especially server-side rendering in mind.
 *  

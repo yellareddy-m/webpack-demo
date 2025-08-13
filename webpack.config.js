@@ -6,6 +6,7 @@ const commonConfig = merge([
   { entry: ["./src"] },
   parts.page({ title: "Demddo" }),
   parts.loadCSS(),
+  parts.extractCSS(),
 ]);
 
 const productionConfig = merge([]);
